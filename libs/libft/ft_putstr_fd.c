@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/17 16:11:58 by samperez         ###   ########.fr       */
+/*   Created: 2024/09/23 10:31:08 by samperez          #+#    #+#             */
+/*   Updated: 2024/10/10 18:46:22 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+// Sends the string into the designed file descriptor
+void	ft_putstr_fd(char *s, int fd)
 {
-	if (argc != 2)
-		ft_printf("ERROR\nIncorrect number of arguments\n");
-	check_map_extension(argv[1]);
-	
+	int	i;
+
+	i = 0;
+	while (s[i] != 0)
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }

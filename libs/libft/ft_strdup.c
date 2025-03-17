@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/17 16:11:58 by samperez         ###   ########.fr       */
+/*   Created: 2024/09/18 13:15:55 by samperez          #+#    #+#             */
+/*   Updated: 2024/10/10 18:47:43 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+// Duplicates a string
+char	*ft_strdup(const char *s)
 {
-	if (argc != 2)
-		ft_printf("ERROR\nIncorrect number of arguments\n");
-	check_map_extension(argv[1]);
-	
+	char			*res;
+	unsigned int	i;
+
+	i = 0;
+	res = malloc(ft_strlen(s) + 1);
+	if (res == 0)
+		return (NULL);
+	while (s[i] != 0)
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }

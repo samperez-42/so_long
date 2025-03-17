@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/17 16:11:58 by samperez         ###   ########.fr       */
+/*   Created: 2024/09/10 19:12:59 by samperez          #+#    #+#             */
+/*   Updated: 2024/10/10 18:47:29 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+// Scans a string for a character
+char	*ft_strchr(const char *s, int c)
 {
-	if (argc != 2)
-		ft_printf("ERROR\nIncorrect number of arguments\n");
-	check_map_extension(argv[1]);
-	
+	int	i;
+
+	i = 0;
+	while ((char)s[i])
+	{
+		if (*s == (char)c)
+			return (&((char *)s)[i]);
+		s++;
+	}
+	if ((char)c == '\0')
+		return (&((char *)s)[i]);
+	return (0);
 }

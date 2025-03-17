@@ -1,30 +1,50 @@
-NAME	:= so_long
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= MLX42
+NAME = so_long
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+RM = rm -rf
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
-SRCS	:= $(shell find ./src -iname "*.c")
-OBJS	:= ${SRCS:.c=.o}
+MLX42_PATH = libs/MLX42
+MLX42 = $(MLX42_PATH)/build/libmlx42.a
 
-all: libmlx $(NAME)
+LIBFT_PATH = libs/libft
+LIBFT = $(LIBFT_PATH)/libft.a
 
-libmlx:
-	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
+HEADERS = -I ./libs -I $(MLX42_PATH)/include/MLX42 -I $(LIBFT_PATH)
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+SRCS =	./src/main.c \
+		./src/init.c \
+		./src/parsing.c
+
+SRCDIR = src/
+OBJDIR = obj/
+OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
+
+all : $(MLX42) $(LIBFT) $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(LIBFT) $(HEADERS) -lglfw -o $(NAME) -lm
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR):
+	@mkdir -p $@
+	@rmdir obj
+
+$(LIBFT):
+	make -C $(LIBFT_PATH)
+
+$(MLX42):
+	cmake $(MLX42_PATH) -B $(MLX42_PATH)/build && make -C $(MLX42_PATH)/build -j4
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	$(RM) obj
+	make -C $(LIBFT_PATH) clean
+	make -C $(MLX42_PATH)/build clean
 
-fclean: clean
-	@rm -rf $(NAME)
+fclean:
+	$(RM) obj $(NAME)
+	make -C $(LIBFT_PATH) fclean
+	$(RM) $(MLX42_PATH)/build
 
-re: clean all
-
-.PHONY: all, clean, fclean, re, libmlx
+re: fclean all
