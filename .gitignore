@@ -2,3 +2,4 @@ libs/MLX42/*
 libs/MLX42
 *.o
 so_long
+libs/libft/libft.a
