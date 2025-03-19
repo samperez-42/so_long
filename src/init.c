@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/18 15:28:22 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:56:25 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,33 @@
 // 
 void	read_map(char **map, int fd)
 {
-	char	*tmp;
+//	char	*tmp;
 	int		rows;
 	int		chars;
 
 	rows = 0;
 	chars = 0;
-	tmp = get_next_line(fd);
-	while (tmp != NULL)
+	map = (char **)malloc(sizeof(char **));
+	map[rows] = get_next_line(fd);
+	ft_printf("%s", map[rows]);
+ 	while (1)
 	{
-		chars += ft_strlen(tmp);
-		free(tmp);
-		tmp = get_next_line(fd);
+		map[rows] = get_next_line(fd);
+		ft_printf("%s", map[rows]);
+//		free(tmp); // Double free
+//		tmp = NULL;
+		if (map[rows] == NULL)
+			break ;
 		rows++;
 	}
-	
+	free_map(map);
 }
 
-void	init_mlx(void)
+/* void	init_mlx(void)
 {
 	void	*mlx_ptr;
 
 	mlx_ptr = mlx_init(WIDTH, HEIGHT, "Pedrito.txt", true);
 	mlx_loop(mlx_ptr);
 	mlx_terminate(mlx_ptr);
-}
+} */

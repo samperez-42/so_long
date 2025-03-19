@@ -13,7 +13,8 @@ HEADERS = -I ./libs -I $(MLX42_PATH)/include/MLX42 -I $(LIBFT_PATH)
 
 SRCS =	./src/main.c \
 		./src/init.c \
-		./src/parsing.c
+		./src/parsing.c \
+		./src/error_free.c
 
 SRCDIR = src/
 OBJS = $(SRCS:$(SRCDIR)%.c=%.o)

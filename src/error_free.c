@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error_free.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/19 12:59:22 by samperez         ###   ########.fr       */
+/*   Created: 2025/03/19 12:52:05 by samperez          #+#    #+#             */
+/*   Updated: 2025/03/19 12:57:15 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	main(int argc, char **argv)
+void	free_map(char **map)
 {
-	int		fd;
-	char	*map;
+	int		i;
 
-	map = NULL;
-	if (argc != 2)
-		return (ft_printf("ERROR\nIncorrect number of arguments\n"));
-	check_map_extension(argv[1]);
-	fd = check_map(argv[1]);
-	read_map(&map, fd);
-
-
-	close(fd);
+	i = 0;
+	while (map[i])
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
 }

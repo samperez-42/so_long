@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 13:15:55 by samperez          #+#    #+#             */
-/*   Updated: 2024/10/10 18:47:43 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:51:30 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*ft_strdup(const char *s)
 	unsigned int	i;
 
 	i = 0;
+	if (s == NULL)
+		return (res = 0);
 	res = malloc(ft_strlen(s) + 1);
 	if (res == 0)
 		return (NULL);

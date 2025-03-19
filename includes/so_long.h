@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/18 14:19:48 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:10:32 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,24 +21,36 @@
 # include <fcntl.h>
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
-# ifndef HEIGHT
-#  define HEIGHT 600
-# endif
-# ifndef WIDTH
-#  define WIDTH 1400
-# endif
 
-typedef struct mlxx
+typedef struct s_player
 {
-	void		*window;
-	void		*context;
-	int32_t		width;
-	int32_t		height;
-	double		delta_time;
-}	t_mlx;
+	int	x;
+	int	y;
+}	t_player;
+
+
+typedef struct s_img
+{
+	mlx_t		*window;
+	
+}	t_img;
+
+typedef struct s_game
+{
+	char		**map;
+	char		**map_copy;
+	t_player	player;
+	int			lines;
+	int			columns;
+	int			coins;
+	int			exit;
+	int			exit_copy;
+	
+}	t_game;
 
 void	check_map_extension(const char *map_name);
 int		check_map(const char *map);
 void	read_map(char **map, int fd);
+void	free_map(char **map);
 
 #endif
