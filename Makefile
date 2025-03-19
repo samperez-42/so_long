@@ -16,20 +16,15 @@ SRCS =	./src/main.c \
 		./src/parsing.c
 
 SRCDIR = src/
-OBJDIR = obj/
-OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
+OBJS = $(SRCS:$(SRCDIR)%.c=%.o)
 
-all : $(MLX42) $(LIBFT) $(OBJDIR) $(NAME)
+all : $(MLX42) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(MLX42) $(LIBFT) $(HEADERS) -lglfw -o $(NAME) -lm
 
-$(OBJDIR)%.o: $(SRCDIR)%.c
+%.o: $(SRCDIR)%.c
 	$(CC) $(CFLAGS) -c $< -o $@
-
-$(OBJDIR):
-	@mkdir -p $@
-	@rmdir obj
 
 $(LIBFT):
 	make -C $(LIBFT_PATH)
@@ -38,12 +33,11 @@ $(MLX42):
 	cmake $(MLX42_PATH) -B $(MLX42_PATH)/build && make -C $(MLX42_PATH)/build -j4
 
 clean:
-	$(RM) obj
 	make -C $(LIBFT_PATH) clean
 	make -C $(MLX42_PATH)/build clean
 
 fclean:
-	$(RM) obj $(NAME)
+	$(RM) $(NAME)
 	make -C $(LIBFT_PATH) fclean
 	$(RM) $(MLX42_PATH)/build
 
