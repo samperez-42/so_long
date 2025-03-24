@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/19 15:10:32 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:15:22 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,50 @@
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
 
-typedef struct s_player
+typedef struct s_point
 {
 	int	x;
 	int	y;
-}	t_player;
-
+}	t_point;
 
 typedef struct s_img
 {
-	mlx_t		*window;
-	
+	mlx_texture_t	*coll;
+	mlx_texture_t	*wall;
+	mlx_texture_t	*exit_c;
+	mlx_texture_t	*exit_o;
+	mlx_texture_t	*p;
+	mlx_texture_t	*tile;
+	mlx_image_t		*collect_i;
+	mlx_image_t		*wall_i;
+	mlx_image_t		*exit_c_i;
+	mlx_image_t		*exit_o_i;
+	mlx_image_t		*p_i;
+	mlx_image_t		*ti_i;
 }	t_img;
 
 typedef struct s_game
 {
 	char		**map;
-	char		**map_copy;
-	t_player	player;
-	int			lines;
-	int			columns;
-	int			coins;
+	char		**map_save;
+	int			moves;
+	t_img		img;
+	t_point		p_pos;
+	t_point		exit_pos;
 	int			exit;
-	int			exit_copy;
-	
+	int			exit_c;
+	int			coin;
+	int			coin_c;
+	int			p_num;
+	int			p_c;
+	int			height;
+	int			width;
+	int			null_check;
+	mlx_t		*wind;
 }	t_game;
 
-void	check_map_extension(const char *map_name);
 int		check_map(const char *map);
-void	read_map(char **map, int fd);
-void	free_map(char **map);
+void	read_map(t_game *map, int fd);
+void	free_all(t_game *map);
 
 #endif

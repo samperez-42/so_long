@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 10:48:57 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/17 14:48:38 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:39:15 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ char	*ft_gnl_strjoin(char const *s1, char const *s2)
 	int		len_s1;
 	int		len_s2;
 
-	len_s1 = ft_strlen((char *)s1);
+	if (s1)
+		len_s1 = ft_strlen((char *)s1);
+	else
+		len_s1 = 0;
 	len_s2 = ft_strlen((char *)s2);
 	i = len_s1 + len_s2;
 	result = (char *)malloc(sizeof(char) * i + 1);

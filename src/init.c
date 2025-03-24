@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/19 12:56:25 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/24 15:41:03 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,30 @@
 
 // Need to read the whole map in a while loop using gnl
 // 
-void	read_map(char **map, int fd)
-{
-//	char	*tmp;
-	int		rows;
-	int		chars;
 
-	rows = 0;
-	chars = 0;
-	map = (char **)malloc(sizeof(char **));
-	map[rows] = get_next_line(fd);
-	ft_printf("%s", map[rows]);
- 	while (1)
+void	read_map(t_game *map, int fd)
+{
+	char	*line;
+	char	*tmp;
+
+	tmp = get_next_line(fd);
+	line = NULL;
+	while (tmp != NULL)
 	{
-		map[rows] = get_next_line(fd);
-		ft_printf("%s", map[rows]);
-//		free(tmp); // Double free
-//		tmp = NULL;
-		if (map[rows] == NULL)
-			break ;
-		rows++;
+		line = ft_gnl_strjoin(line, tmp);
+		free(tmp);
+		tmp = get_next_line(fd);
 	}
-	free_map(map);
+	close(fd);
+	map->map = ft_split(line, '\n');
+	map->map_save = ft_split(line, '\n');
+	free(line);
+	int i = 0;
+	while (map->map[i])
+	{
+		ft_printf("%s\n", map->map[i]);
+		i++;
+	}
 }
 
 /* void	init_mlx(void)
