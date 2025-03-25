@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/24 15:15:22 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/25 12:59:02 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,10 @@ typedef struct s_game
 	mlx_t		*wind;
 }	t_game;
 
-int		check_map(const char *map);
+int		open_map(const char *map);
 void	read_map(t_game *map, int fd);
+int		parse_map(t_game *map);
+int		is_map_rectangular(char **map);
 void	free_all(t_game *map);
 
 #endif
