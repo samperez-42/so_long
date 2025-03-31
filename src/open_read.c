@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_read.c                                       :+:      :+:    :+:   */
+/*   open_read.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 12:56:50 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 13:04:37 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	open_map(const char *map_file)
 	if (len <= 4 || map_file[len - 1] != 'r' || map_file[len - 2] != 'e'
 		|| map_file[len - 3] != 'b' || map_file[len - 4] != '.')
 	{
-		ft_printf("Error\nWRONG MAP FORMAT\n");
+		ft_printf("Error\nWrong map format\n");
 		exit(EXIT_FAILURE);
 	}
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 	{
-		return (ft_printf("Error\nCAN'T OPEN THE MAP"));
+		return (ft_printf("Error\nCan't open the map"));
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
