@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_read.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/25 12:59:16 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 11:01:01 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	open_map(const char *map_file)
 		exit(EXIT_FAILURE);
 	}
 	fd = open(map_file, O_RDONLY);
-	if (fd == -1)
+	if (fd < 0)
 	{
-		ft_printf("Error\nCAN'T OPEN THE MAP");
+		return (ft_printf("Error\nCAN'T OPEN THE MAP"));
 		exit(EXIT_FAILURE);
 	}
 	return (fd);
@@ -52,12 +52,6 @@ void	read_map(t_game *map, int fd)
 	map->map = ft_split(line, '\n');
 	map->map_save = ft_split(line, '\n');
 	free(line);
-//	int i = 0;
-//	while (map->map[i])
-//	{
-//		ft_printf("%s\n", map->map[i]);
-//		i++;
-//	}
 }
 
 int	parse_map(t_game *map)

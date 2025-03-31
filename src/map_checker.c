@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/25 16:21:09 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 10:42:27 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	is_map_rectangular(char **map)
 	int	columns;
 
 	if (check_map_dimensions(map, &lines, &columns) == EXIT_FAILURE)
-		return (EXIT_FAILURE);
-	if (lines == columns)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

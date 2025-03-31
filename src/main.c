@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/25 12:56:03 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 11:00:15 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	main(int argc, char **argv)
 	int		fd;
 	t_game	*map;
 
-	map = ft_calloc(1, sizeof(t_game));
-	if (!map)
-		return (ft_printf("Error\nMalloc failed\n"));
 	if (argc != 2)
 		return (ft_printf("Error\nIncorrect number of arguments\n"));
 	fd = open_map(argv[1]);
+	map = ft_calloc(1, sizeof(t_game));
+	if (!map)
+		return (ft_printf("Error\nMalloc failed\n"));
 	read_map(map, fd);
 	parse_map(map);
 	free_all(map);
