@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/25 12:59:02 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:30:45 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ typedef struct s_img
 	mlx_image_t		*ti_i;
 }	t_img;
 
+/*
+@param map The map used to place the elements
+@param map_save A copy of the map used for flood_fill
+@param moves The number of moves made by the player
+@param img
+@param p_pos The position of the player
+@param exit_pos The position of the exit
+@param exit The number of exits
+@param exit_c A copy of exit used for flood_fill
+@param coin The number of coins
+@param coin_c A copy of coin used for flood_fill
+@param p_num The number of players
+@param p_c A copy of player used for flood_fill
+@param height The height of the mlx window
+@param width The width of the mlx window
+*/
 typedef struct s_game
 {
 	char		**map;
@@ -64,10 +80,33 @@ typedef struct s_game
 	mlx_t		*wind;
 }	t_game;
 
+/*
+@brief This function opens the file passed as an argument to later process it
+@param map The map file
+@return fd - The file descriptor
+*/
 int		open_map(const char *map);
+/*
+@brief This function reads the whole map file using gnl in a loop
+@param map The struct
+@param fd The file descriptor
+*/
 void	read_map(t_game *map, int fd);
-int		parse_map(t_game *map);
+/*
+@brief This function checks if the map is rectangular and checks if there are
+invalid characters within the map
+@param char**map  The map file
+@return EXIT_SUCCESS or @return EXIT_FAILURE
+*/
 int		is_map_rectangular(char **map);
+/*
+@brief This function ensures the map is correct.
+*/
+int		parse_map(t_game *map);
+/*
+@brief This function frees the struct used in the so_long program
+@param t_game*map The struct
+*/
 void	free_all(t_game *map);
 
 #endif
