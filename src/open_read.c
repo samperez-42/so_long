@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 13:04:37 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:41:45 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,25 @@ int	open_map(const char *map_file)
 	return (fd);
 }
 
-void	read_map(t_game *map, int fd)
+static int	check_consecutive_new_lines(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] != 0)
+	{
+		if (line[i] == '\n' && line[i + 1] == '\n')
+		{
+			free(line);
+			ft_printf("Error\nConsecutive new lines detected\n");
+			return (EXIT_FAILURE);
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);
+}
+
+int	read_map(t_game *map, int fd)
 {
 	char	*line;
 	char	*tmp;
@@ -47,7 +65,13 @@ void	read_map(t_game *map, int fd)
 		tmp = get_next_line(fd);
 	}
 	close(fd);
+	if (check_consecutive_new_lines(line) == EXIT_FAILURE)
+	{
+		free_all(map);
+		return (EXIT_FAILURE);
+	}
 	map->map = ft_split(line, '\n');
 	map->map_save = ft_split(line, '\n');
 	free(line);
+	return (EXIT_SUCCESS);
 }

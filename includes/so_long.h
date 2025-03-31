@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 12:58:20 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:33:06 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_img
 @param p_c A copy of player used for flood_fill
 @param height The height of the mlx window
 @param width The width of the mlx window
+@param wind The window itself
 */
 typedef struct s_game
 {
@@ -91,9 +92,11 @@ int		open_map(const char *map);
 @param map The struct
 @param fd The file descriptor
 */
-void	read_map(t_game *map, int fd);
+int		read_map(t_game *map, int fd);
 /*
 @brief This function ensures the map is correct.
+It checks if the map is rectangular, if there are invalid characters
+or if there are an incorrect number of coins, players or exits
 */
 int		parse_map(t_game *map);
 /*
