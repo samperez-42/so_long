@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 11:01:01 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:56:50 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	open_map(const char *map_file)
 	return (fd);
 }
 
-// Need to read the whole map in a while loop using gnl
-
 void	read_map(t_game *map, int fd)
 {
 	char	*line;
@@ -52,13 +50,4 @@ void	read_map(t_game *map, int fd)
 	map->map = ft_split(line, '\n');
 	map->map_save = ft_split(line, '\n');
 	free(line);
-}
-
-int	parse_map(t_game *map)
-{
-	if (is_map_rectangular(map->map) == EXIT_FAILURE)
-		return (ft_printf("Error\nMap is not rectangular\n"));
-/* 	if (check_map_elements(map) == EXIT_FAILURE)
-		return (ft_printf("Error\nIncorrect number of objects\n")); */
-	return (EXIT_SUCCESS);
 }

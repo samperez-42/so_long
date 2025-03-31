@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 12:30:45 by samperez         ###   ########.fr       */
+/*   Updated: 2025/03/31 12:58:20 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,6 @@ int		open_map(const char *map);
 @param fd The file descriptor
 */
 void	read_map(t_game *map, int fd);
-/*
-@brief This function checks if the map is rectangular and checks if there are
-invalid characters within the map
-@param char**map  The map file
-@return EXIT_SUCCESS or @return EXIT_FAILURE
-*/
-int		is_map_rectangular(char **map);
 /*
 @brief This function ensures the map is correct.
 */
