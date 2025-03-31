@@ -55,6 +55,31 @@ static int	check_map_dimensions(t_game *map, int *lines, int *columns)
 	return (EXIT_SUCCESS);
 }
 
+static int	check_map_enclosed(char **map, int *lines, int *columns)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (j++ < *columns - 1)
+	{
+		if (map[i][j] != '1')
+			return (EXIT_FAILURE);
+	}
+	while (i++ < *lines - 1)
+	{
+		if (map[i][0] != '1' || map[i][*columns - 1] != '1')
+			return (EXIT_FAILURE);
+	}
+	while (j++ < *columns - 1)
+	{
+		if (map[i][j] != '1')
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	parse_map(t_game *map)
 {
 	int	lines;
@@ -62,5 +87,7 @@ int	parse_map(t_game *map)
 
 	if (check_map_dimensions(map, &lines, &columns) == EXIT_FAILURE)
 		return (ft_printf("Error\nMap is not rectangular\n"));
+	if (check_map_enclosed(map->map, &lines, &columns) == EXIT_FAILURE)
+		return (ft_printf("Error\nMap is not enclosed\n"));
 	return (EXIT_SUCCESS);
 }
