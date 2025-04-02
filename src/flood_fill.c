@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:23 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 15:35:41 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:38:20 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,14 @@ int	flood_fill(t_game *map)
 	y = map->p_pos.y;
 	check_path(map, map->map_save, y, x);
 	if (map->coin != map->coin_c)
+	{
+		free_all(map);
 		return (ft_printf("Error\nNot all collectibles are reachable\n"));
+	}
 	if (map->exit != map->exit_c)
+	{
+		free_all(map);
 		return (ft_printf("Error\nExit not reachable\n"));
+	}
 	return (EXIT_SUCCESS);
 }
