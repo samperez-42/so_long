@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 16:41:20 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 10:40:38 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\nMalloc failed\n"));
 	if (read_map(map, fd) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	parse_map(map);
+	if (parse_map(map) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
 //	flood_fill(map->map_save);
 	free_all(map);
 }

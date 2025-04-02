@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 13:00:08 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:16:27 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ static int	check_map_enclosed(char **map, int *lines, int *columns)
 		if (map[i][0] != '1' || map[i][*columns - 1] != '1')
 			return (EXIT_FAILURE);
 	}
+	j = 0;
 	while (j++ < *columns - 1)
 	{
-		if (map[i][j] != '1')
+		if (map[i - 1][j] != '1')
 			return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
