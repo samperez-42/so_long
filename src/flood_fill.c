@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:23 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 15:22:01 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:35:41 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,28 +44,33 @@ static void	check_path(t_game *map, char **map_c, int y, int x)
 {
 	if (map_c[y][x] == '1' || map_c[y][x] == '*')
 		return ;
-	else
-		map_c[y][x] = '*';
-	check_path(map, map->map_save, map->p_pos.y + 1, map->p_pos.x);
-	check_path(map, map->map_save, map->p_pos.y - 1, map->p_pos.x);
-	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x + 1);
-	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x - 1);
+	else if (map_c[y][x] == 'C')
+		map->coin_c++;
+	else if (map_c[y][x] == 'E')
+		map->exit_c++;
+	map_c[y][x] = '*';
+	check_path(map, map->map_save, y, x + 1);
+	check_path(map, map->map_save, y, x - 1);
+	check_path(map, map->map_save, y + 1, x);
+	check_path(map, map->map_save, y - 1, x);
 }
 
 int	flood_fill(t_game *map)
 {
+	int	x;
+	int	y;
+
 	if (locate_player(map, map->map_save) != EXIT_SUCCESS)
 	{
 		free_all(map);
 		return (EXIT_FAILURE);
 	}
-	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x);
-	int	i = 0;
-	while (map->map_save[i])
-	{
-		printf("%s\n", map->map_save[i]);
-		i++;
-	}
-	
+	x = map->p_pos.x;
+	y = map->p_pos.y;
+	check_path(map, map->map_save, y, x);
+	if (map->coin != map->coin_c)
+		return (ft_printf("Error\nNot all collectibles are reachable\n"));
+	if (map->exit != map->exit_c)
+		return (ft_printf("Error\nExit not reachable\n"));
 	return (EXIT_SUCCESS);
 }
