@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 11:18:23 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 12:46:34 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:22:01 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	locate_player(t_game *map, char **map_c)
 			{
 				map->p_pos.x = j;
 				map->p_pos.y = i;
-				if (map_c[i][j + 1] == '1' && map_c[i][j - 1] == '1'
-					&& map_c[i + 1][j] == '1' && map_c[i - 1][j] == '1')
+				if (map_c[i][j + 1] == '1' && map_c[i][j - 1] == '1' && map_c[i
+					+ 1][j] == '1' && map_c[i - 1][j] == '1')
 					return (ft_printf("Error\nPlayer trapped\n"));
 				return (EXIT_SUCCESS);
 			}
@@ -40,29 +40,32 @@ static int	locate_player(t_game *map, char **map_c)
 	return (EXIT_SUCCESS);
 }
 
-/* static int	check_path(t_game *map, char **map_c)
+static void	check_path(t_game *map, char **map_c, int y, int x)
 {
-	int	i;
-	int	j;
-
-	i = map->p_pos.x;
-	j = map->p_pos.y;
- 	while (condition)
-	{
-		if (map_c[i][j] == '1' || map_c[i][j] == '*')
-		{
-			return ;
-		}
-		else
-			map_c[i][j] = '*';
-	}
-	return (EXIT_SUCCESS);
-} */
+	if (map_c[y][x] == '1' || map_c[y][x] == '*')
+		return ;
+	else
+		map_c[y][x] = '*';
+	check_path(map, map->map_save, map->p_pos.y + 1, map->p_pos.x);
+	check_path(map, map->map_save, map->p_pos.y - 1, map->p_pos.x);
+	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x + 1);
+	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x - 1);
+}
 
 int	flood_fill(t_game *map)
 {
 	if (locate_player(map, map->map_save) != EXIT_SUCCESS)
+	{
+		free_all(map);
 		return (EXIT_FAILURE);
-//	check_path(map, map->map_save);
+	}
+	check_path(map, map->map_save, map->p_pos.y, map->p_pos.x);
+	int	i = 0;
+	while (map->map_save[i])
+	{
+		printf("%s\n", map->map_save[i]);
+		i++;
+	}
+	
 	return (EXIT_SUCCESS);
 }

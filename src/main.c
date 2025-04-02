@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 11:37:34 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 15:22:21 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ int	main(int argc, char **argv)
 	map = ft_calloc(1, sizeof(t_game));
 	if (!map)
 		return (ft_printf("Error\nMalloc failed\n"));
-	if (read_map(map, fd) == EXIT_FAILURE)
+	if (read_map(map, fd))
 		return (EXIT_FAILURE);
-	if (parse_map(map) == EXIT_FAILURE)
+	if (parse_map(map))
 		return (EXIT_FAILURE);
-	flood_fill(map);
+	if (flood_fill(map))
+		return (EXIT_FAILURE);
 	free_all(map);
 }
