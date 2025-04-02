@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 16:33:06 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/02 12:25:59 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ typedef struct s_game
 	int			coin;
 	int			coin_c;
 	int			p_num;
-	int			p_c;
 	int			height;
 	int			width;
-	int			null_check;
 	mlx_t		*wind;
 }	t_game;
 
@@ -100,7 +98,17 @@ or if there are an incorrect number of coins, players or exits
 */
 int		parse_map(t_game *map);
 /*
-@brief This function frees the struct used in the so_long program
+@brief This function checks if the level is "beatable" by normal means.
+It checks whether or not the player is trapped,
+if he can reach all collectibles and if he can reach the exit
+*/
+int		flood_fill(t_game *map);
+/*
+@brief This function frees a map when it is no longer required.
+*/
+void	free_map(char **map);
+/*
+@brief This function frees the whole struct used in the so_long program
 @param t_game*map The struct
 */
 void	free_all(t_game *map);
