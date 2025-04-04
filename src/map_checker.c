@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 11:16:27 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:02:24 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,14 @@ int	parse_map(t_game *map)
 	int	columns;
 
 	if (check_map_dimensions(map, &lines, &columns) == EXIT_FAILURE)
+	{
+		free_all(map);
 		return (ft_printf("Error\nMap is not rectangular\n"));
+	}
 	if (check_map_enclosed(map->map, &lines, &columns) == EXIT_FAILURE)
+	{
+		free_all(map);
 		return (ft_printf("Error\nMap is not enclosed\n"));
+	}
 	return (EXIT_SUCCESS);
 }

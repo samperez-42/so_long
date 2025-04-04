@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/03/31 16:41:45 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:11:01 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,26 @@ static int	check_consecutive_new_lines(char *line)
 	return (EXIT_SUCCESS);
 }
 
+static int	check_map_empty(char *tmp, t_game *map, int fd)
+{
+	if (!tmp)
+	{
+		ft_printf("Error\nEmpty map\n");
+		free_all(map);
+		close(fd);
+		return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
+}
+
 int	read_map(t_game *map, int fd)
 {
 	char	*line;
 	char	*tmp;
 
 	tmp = get_next_line(fd);
+	if (check_map_empty(tmp, map, fd))
+		return (EXIT_FAILURE);
 	line = NULL;
 	while (tmp != NULL)
 	{
