@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/04 11:02:24 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:04:50 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	check_map_dimensions(t_game *map, int *lines, int *columns)
 		if (*columns == 0)
 			*columns = current_columns;
 		else if (current_columns != *columns)
-			return (EXIT_FAILURE);
+			return (ft_printf("Error\nMap is not rectangular\n"));
 		(*lines)++;
 	}
 	if (map->coin < 1 || map->exit != 1 || map->p_num != 1)
@@ -86,15 +86,26 @@ int	parse_map(t_game *map)
 	int	lines;
 	int	columns;
 
-	if (check_map_dimensions(map, &lines, &columns) == EXIT_FAILURE)
+	if (check_map_dimensions(map, &lines, &columns) != EXIT_SUCCESS)
 	{
 		free_all(map);
-		return (ft_printf("Error\nMap is not rectangular\n"));
+		return (EXIT_FAILURE);
 	}
-	if (check_map_enclosed(map->map, &lines, &columns) == EXIT_FAILURE)
+	if (check_map_enclosed(map->map, &lines, &columns) != EXIT_SUCCESS)
 	{
 		free_all(map);
 		return (ft_printf("Error\nMap is not enclosed\n"));
 	}
+	return (EXIT_SUCCESS);
+}
+
+int	map_control(t_game *map, int fd)
+{
+	if (read_map(map, fd))
+		return (EXIT_FAILURE);
+	if (parse_map(map))
+		return (EXIT_FAILURE);
+	if (flood_fill(map))
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/02 12:25:59 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/07 11:01:34 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,35 +82,42 @@ typedef struct s_game
 /*
 @brief This function opens the file passed as an argument to later process it
 @param map The map file
-@return fd - The file descriptor
-*/
+@return fd - The file descriptor */
 int		open_map(const char *map);
+
 /*
 @brief This function reads the whole map file using gnl in a loop
 @param map The struct
-@param fd The file descriptor
-*/
+@param fd The file descriptor */
 int		read_map(t_game *map, int fd);
+
 /*
 @brief This function ensures the map is correct.
 It checks if the map is rectangular, if there are invalid characters
-or if there are an incorrect number of coins, players or exits
-*/
+or if there are an incorrect number of coins, players or exits */
 int		parse_map(t_game *map);
+
 /*
 @brief This function checks if the level is "beatable" by normal means.
 It checks whether or not the player is trapped,
-if he can reach all collectibles and if he can reach the exit
-*/
+if he can reach all collectibles and if he can reach the exit */
 int		flood_fill(t_game *map);
-/*
-@brief This function frees a map when it is no longer required.
-*/
+
+// This function calls open_map, read_map, parse_map and flood_fill
+int		map_control(t_game *map, int fd);
+
+//@brief This function frees a map when it is no longer required.
+
 void	free_map(char **map);
+
 /*
 @brief This function frees the whole struct used in the so_long program
-@param t_game*map The struct
-*/
+@param t_game*map The struct */
 void	free_all(t_game *map);
+
+/*
+
+*/
+void	init_mlx(void);
 
 #endif
