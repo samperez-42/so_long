@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/09 12:28:29 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:27:59 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int		map_control(t_game *map, int fd);
 
 // MLX Functions //
 
+//@brief This function registers each key press to move my character
+void	on_key_press(mlx_key_data_t keydata, void *param);
+
+//@brief This function loads the textures and if succesfull, loads the images
 int		load_textures(t_game *map);
 
 //@brief This function initializes the connection to the mlx

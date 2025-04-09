@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/09 12:34:19 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:36:32 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,43 @@ int	load_textures(t_game *map)
 	return (EXIT_FAILURE);
 }
 
+void	draw_map(t_game *map, int lines, int columns)
+{
+	if (map->map[lines][columns] == '1')
+		mlx_image_to_window(map->wind, map->img.wall_i, columns * PXL, lines * PXL);
+	else if (map->map[lines][columns] == '0')
+		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
+	else if (map->map[lines][columns] == 'P')
+	{
+		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
+		mlx_image_to_window(map->wind, map->img.p_i, columns * PXL, lines * PXL);
+	}
+	else if (map->map[lines][columns] == 'C')
+	{
+		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
+		mlx_image_to_window(map->wind, map->img.collect_i, columns * PXL, lines * PXL);
+	}
+	else if (map->map[lines][columns] == 'E')
+	{
+		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
+		mlx_image_to_window(map->wind, map->img.exit_c_i, columns * PXL, lines * PXL);	
+	}
+	if (map->map[lines][columns + 1])
+		draw_map(map, lines, columns + 1);
+	else if (map->map[lines + 1])
+	{
+		columns = 0;
+		draw_map(map, lines + 1, columns);
+	}
+}
+
 int	init_mlx(t_game *map)
 {
-	map->wind = mlx_init(PXL * map->width, PXL * map->height, "so_long", 0);
+	map->wind = mlx_init(PXL * map->width, PXL * (map->height + 1), "so_long", 0);
 	if (load_textures(map) == EXIT_SUCCESS)
 	{
-		//mlx_key_hook(map->wind, &on_key_press, map);
+		draw_map(map, 0, 0);
+		mlx_key_hook(map->wind, &on_key_press, map);
 		mlx_loop(map->wind);
 		return (EXIT_SUCCESS);
 	}

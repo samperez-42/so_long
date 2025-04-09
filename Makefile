@@ -17,7 +17,8 @@ SRCS =	./src/main.c \
 		./src/open_read.c \
 		./src/error_free.c \
 		./src/map_checker.c \
-		./src/flood_fill.c
+		./src/flood_fill.c \
+		./src/key_hook.c
 
 SRCDIR = src/
 OBJS = $(SRCS:$(SRCDIR)%.c=%.o)
