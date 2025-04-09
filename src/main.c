@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:19:09 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/07 11:18:53 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:35:45 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error\nMalloc failed\n"));
 	if (map_control(map, fd))
 		return (EXIT_FAILURE);
-	init_mlx();
+	init_mlx(map);
+	destroy_images(map);
 	free_all(map);
 }
