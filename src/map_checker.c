@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/07 11:04:50 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:42:21 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,30 @@ static int	count_chars(t_game *map, char current)
 
 static int	check_map_dimensions(t_game *map, int *lines, int *columns)
 {
-	int	current_columns;
+	int	c_columns;
 
-	current_columns = 0;
+	c_columns = 0;
 	*lines = 0;
 	*columns = 0;
 	while (map->map[*lines])
 	{
-		current_columns = 0;
-		while (map->map[*lines][current_columns])
+		c_columns = 0;
+		while (map->map[*lines][c_columns])
 		{
-			if (count_chars(map, map->map[*lines][current_columns])
-			== EXIT_FAILURE)
+			if (count_chars(map, map->map[*lines][c_columns]) == EXIT_FAILURE)
 				return (ft_printf("Error\nInvalid characters detected\n"));
-			current_columns++;
+			c_columns++;
 		}
 		if (*columns == 0)
-			*columns = current_columns;
-		else if (current_columns != *columns)
+			*columns = c_columns;
+		else if (c_columns != *columns)
 			return (ft_printf("Error\nMap is not rectangular\n"));
 		(*lines)++;
 	}
 	if (map->coin < 1 || map->exit != 1 || map->p_num != 1)
 		return (ft_printf("Error\nIncorrect number of objects\n"));
+	map->width = *columns;
+	map->height = *lines - 1;
 	return (EXIT_SUCCESS);
 }
 
