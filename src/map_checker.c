@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/09 12:42:21 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/10 17:26:39 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	check_map_dimensions(t_game *map, int *lines, int *columns)
 	if (map->coin < 1 || map->exit != 1 || map->p_num != 1)
 		return (ft_printf("Error\nIncorrect number of objects\n"));
 	map->width = *columns;
-	map->height = *lines - 1;
+	map->height = *lines;
 	return (EXIT_SUCCESS);
 }
 

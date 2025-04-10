@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/09 16:36:32 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/10 18:47:43 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,36 @@ int	load_textures(t_game *map)
 	return (EXIT_FAILURE);
 }
 
-void	draw_map(t_game *map, int lines, int columns)
+void	draw_map(t_game *map, int y, int x)
 {
-	if (map->map[lines][columns] == '1')
-		mlx_image_to_window(map->wind, map->img.wall_i, columns * PXL, lines * PXL);
-	else if (map->map[lines][columns] == '0')
-		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
-	else if (map->map[lines][columns] == 'P')
+	if (map->map[y][x] == '1')
+		mlx_image_to_window(map->wind, map->img.wall_i, x * PXL, y * PXL);
+	if (map->map[y][x] == '0')
+		mlx_image_to_window(map->wind, map->img.ti_i, x * PXL, y * PXL);
+	if (map->map[y][x] == 'P')
 	{
-		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
-		mlx_image_to_window(map->wind, map->img.p_i, columns * PXL, lines * PXL);
+		mlx_image_to_window(map->wind, map->img.ti_i, x * PXL, y * PXL);
+		mlx_image_to_window(map->wind, map->img.p_i, x * PXL, y * PXL);
 	}
-	else if (map->map[lines][columns] == 'C')
+	else if (map->map[y][x] == 'C')
 	{
-		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
-		mlx_image_to_window(map->wind, map->img.collect_i, columns * PXL, lines * PXL);
+		mlx_image_to_window(map->wind, map->img.ti_i, x * PXL, y * PXL);
+		mlx_image_to_window(map->wind, map->img.collect_i, x * PXL, y * PXL);
 	}
-	else if (map->map[lines][columns] == 'E')
+	else if (map->map[y][x] == 'E')
 	{
-		mlx_image_to_window(map->wind, map->img.ti_i, columns * PXL, lines * PXL);
-		mlx_image_to_window(map->wind, map->img.exit_c_i, columns * PXL, lines * PXL);	
+		mlx_image_to_window(map->wind, map->img.ti_i, x * PXL, y * PXL);
+		mlx_image_to_window(map->wind, map->img.exit_c_i, x * PXL, y * PXL);
 	}
-	if (map->map[lines][columns + 1])
-		draw_map(map, lines, columns + 1);
-	else if (map->map[lines + 1])
-	{
-		columns = 0;
-		draw_map(map, lines + 1, columns);
-	}
+	if (map->map[y][x + 1])
+		draw_map(map, y, x + 1);
+	else if (map->map[y + 1])
+		draw_map(map, y + 1, 0);
 }
 
 int	init_mlx(t_game *map)
 {
-	map->wind = mlx_init(PXL * map->width, PXL * (map->height + 1), "so_long", 0);
+	map->wind = mlx_init(PXL * map->width, PXL * (map->height), "so_long", 0);
 	if (load_textures(map) == EXIT_SUCCESS)
 	{
 		draw_map(map, 0, 0);
