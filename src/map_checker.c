@@ -3,23 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 12:49:43 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/10 17:26:39 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:52:17 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-static int	count_chars(t_game *map, char current)
+static int	count_chr(t_game *map, char current, int lines, int columns)
 {
 	if (current == 'P')
 		map->p_num++;
 	else if (current == 'C')
 		map->coin++;
 	else if (current == 'E')
+	{
+		map->exit_pos.x = columns;
+		map->exit_pos.y = lines;
 		map->exit++;
+	}
 	else if (current == '0' || current == '1')
 		return (EXIT_SUCCESS);
 	else
@@ -39,7 +43,7 @@ static int	check_map_dimensions(t_game *map, int *lines, int *columns)
 		c_columns = 0;
 		while (map->map[*lines][c_columns])
 		{
-			if (count_chars(map, map->map[*lines][c_columns]) == EXIT_FAILURE)
+			if (count_chr(map, map->map[*lines][c_columns], *lines, c_columns))
 				return (ft_printf("Error\nInvalid characters detected\n"));
 			c_columns++;
 		}

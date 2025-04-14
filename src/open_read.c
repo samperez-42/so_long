@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:37:41 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/04 11:11:01 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:07:25 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ int	open_map(const char *map_file)
 		|| map_file[len - 3] != 'b' || map_file[len - 4] != '.')
 	{
 		ft_printf("Error\nWrong map format\n");
-		exit(EXIT_FAILURE);
+		return (-1);
 	}
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
 	{
-		return (ft_printf("Error\nCan't open the map"));
-		exit(EXIT_FAILURE);
+		ft_printf("Error\nCan't open the map\n");
+		return (-1);
 	}
 	return (fd);
 }

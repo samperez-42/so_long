@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: samperez <samperez@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/10 18:47:43 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:47:50 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,16 @@ int	load_textures(t_game *map)
 	return (EXIT_FAILURE);
 }
 
+void	check_exit_status(t_game *map, int x, int y)
+{
+	if ((map->p_pos.x != map->exit_pos.x || map->p_pos.y != map->exit_pos.y))
+		map->map[map->exit_pos.y][map->exit_pos.x] = 'E';
+	if (map->coin != 0)
+		mlx_image_to_window(map->wind, map->img.exit_c_i, x * PXL, y * PXL);
+	else
+		mlx_image_to_window(map->wind, map->img.exit_o_i, x * PXL, y * PXL);
+}
+
 void	draw_map(t_game *map, int y, int x)
 {
 	if (map->map[y][x] == '1')
@@ -54,7 +64,7 @@ void	draw_map(t_game *map, int y, int x)
 	else if (map->map[y][x] == 'E')
 	{
 		mlx_image_to_window(map->wind, map->img.ti_i, x * PXL, y * PXL);
-		mlx_image_to_window(map->wind, map->img.exit_c_i, x * PXL, y * PXL);
+		check_exit_status(map, x, y);
 	}
 	if (map->map[y][x + 1])
 		draw_map(map, y, x + 1);
