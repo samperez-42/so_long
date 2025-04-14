@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/14 14:55:20 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:24:53 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 # define SO_LONG_H
 # define PXL 50
 
-# include <stdlib.h>
-# include <unistd.h>
-# include <math.h>
-# include <string.h>
-# include <stdio.h>
-# include <fcntl.h>
 # include "../libs/MLX42/include/MLX42/MLX42.h"
 # include "../libs/libft/libft.h"
+# include <fcntl.h>
+# include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <unistd.h>
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-}	t_point;
+	int				x;
+	int				y;
+}					t_point;
 
 typedef struct s_img
 {
@@ -43,7 +43,7 @@ typedef struct s_img
 	mlx_image_t		*exit_o_i;
 	mlx_image_t		*p_i;
 	mlx_image_t		*ti_i;
-}	t_img;
+}					t_img;
 
 /*
 @param map The map used to place the elements
@@ -64,22 +64,21 @@ typedef struct s_img
 */
 typedef struct s_game
 {
-	char		**map;
-	char		**map_save;
-	int			moves;
-	t_img		img;
-	t_point		p_pos;
-	t_point		exit_pos;
-	int			exit;
-	int			exit_c;
-	int			coin;
-	int			coin_c;
-	int			p_num;
-	int			height;
-	int			width;
-	mlx_t		*wind;
-}	t_game;
-
+	char			**map;
+	char			**map_save;
+	int				moves;
+	t_img			img;
+	t_point			p_pos;
+	t_point			exit_pos;
+	int				exit;
+	int				exit_c;
+	int				coin;
+	int				coin_c;
+	int				p_num;
+	int				height;
+	int				width;
+	mlx_t			*wind;
+}					t_game;
 
 // Map Control functions //
 
@@ -87,70 +86,70 @@ typedef struct s_game
 @brief This function opens the file passed as an argument to later process it
 @param map The map file
 @return fd - The file descriptor */
-int		open_map(const char *map);
+int					open_map(const char *map);
 
 /*
 @brief This function reads the whole map file using gnl in a loop
 @param map The struct
 @param fd The file descriptor */
-int		read_map(t_game *map, int fd);
+int					read_map(t_game *map, int fd);
 
 /*
 @brief This function ensures the map is correct.
 It checks if the map is rectangular, if there are invalid characters
 or if there are an incorrect number of coins, players or exits */
-int		parse_map(t_game *map);
+int					parse_map(t_game *map);
 
 /*
 @brief This function checks if the level is "beatable" by normal means.
 It checks whether or not the player is trapped,
 if he can reach all collectibles and if he can reach the exit */
-int		flood_fill(t_game *map);
+int					flood_fill(t_game *map);
 
 // This function calls open_map, read_map, parse_map and flood_fill
-int		map_control(t_game *map, int fd);
+int					map_control(t_game *map, int fd);
 
 // MLX Functions //
 
 //@brief This function registers each key press to move my character
-void	on_key_press(mlx_key_data_t keydata, void *param);
+void				on_key_press(mlx_key_data_t keydata, void *param);
 
 //@brief This function loads the textures and if succesfull, loads the images
-int		load_textures(t_game *map);
+int					load_textures(t_game *map);
 
 //@brief This function initializes the connection to the mlx
-int		init_mlx(t_game *map);
+int					init_mlx(t_game *map);
 
 //@brief This function draws the whole map
-void	draw_map(t_game *map, int y, int x);
+void				draw_map(t_game *map, int y, int x);
 
 //@brief This function draws only the required tiles to improve performance
-void	update_map(t_game *map, int target_x, int target_y);
+void				update_map(t_game *map, int target_x, int target_y);
 
 //@brief This function ensures exit is not erased and drawn in correct state
-void	check_exit_status(t_game *map, int x, int y);
+void				check_exit_status(t_game *map, int x, int y);
 
 // Free functions //
 
 /*
-@brief This function checks if the mlx_load_png function managed 
+@brief This function checks if the mlx_load_png function managed
 to initialize all textures*/
-int		check_textures_exist(t_game *map);
+int					check_textures_exist(t_game *map);
 
 //@brief This function frees a map when it is no longer required.
-void	free_map(char **map);
+void				free_map(char **map);
 
 /*
 @brief This function frees the whole struct used in the so_long program
 @param t_game*map The struct */
-void	free_all(t_game *map);
+void				free_all(t_game *map);
 
 /*
 @brief This function frees the textures when they are either
 converted to images or when they fail to convert to images*/
-void		free_textures(t_game *map);
+void				free_textures(t_game *map);
 
 //@brief This function de-allocates the images of the mlx
-void		destroy_images(t_game *map);
+void				destroy_images(t_game *map);
 
 #endif
