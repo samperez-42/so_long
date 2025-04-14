@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 12:36:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/14 11:47:50 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:54:51 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ void	check_exit_status(t_game *map, int x, int y)
 		mlx_image_to_window(map->wind, map->img.exit_c_i, x * PXL, y * PXL);
 	else
 		mlx_image_to_window(map->wind, map->img.exit_o_i, x * PXL, y * PXL);
+}
+
+void	update_map(t_game *map, int tgt_x, int tgt_y)
+{
+	mlx_image_to_window(map->wind, map->img.ti_i,
+		map->p_pos.x * PXL, map->p_pos.y * PXL);
+	mlx_image_to_window(map->wind, map->img.ti_i, tgt_x * PXL, tgt_y * PXL);
+	mlx_image_to_window(map->wind, map->img.p_i, tgt_x * PXL, tgt_y * PXL);
 }
 
 void	draw_map(t_game *map, int y, int x)

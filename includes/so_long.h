@@ -6,7 +6,7 @@
 /*   By: samperez <samperez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 11:10:45 by samperez          #+#    #+#             */
-/*   Updated: 2025/04/14 11:16:16 by samperez         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:55:20 by samperez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_game
 	mlx_t		*wind;
 }	t_game;
 
+
 // Map Control functions //
 
 /*
@@ -120,8 +121,11 @@ int		load_textures(t_game *map);
 //@brief This function initializes the connection to the mlx
 int		init_mlx(t_game *map);
 
-//@brief This function draws the map
+//@brief This function draws the whole map
 void	draw_map(t_game *map, int y, int x);
+
+//@brief This function draws only the required tiles to improve performance
+void	update_map(t_game *map, int target_x, int target_y);
 
 //@brief This function ensures exit is not erased and drawn in correct state
 void	check_exit_status(t_game *map, int x, int y);
